@@ -37,7 +37,7 @@ func GetCameras(db *gorm.DB) gin.HandlerFunc {
 		// Search
 		if search := c.Query("search"); search != "" {
 			query = query.Where(
-				"name ILIKE ? OR manufacturer ILIKE ? OR description ILIKE ?",
+				"name LIKE ? OR manufacturer LIKE ? OR description LIKE ?",
 				"%"+search+"%",
 				"%"+search+"%",
 				"%"+search+"%",
@@ -214,7 +214,7 @@ func SearchCameras(db *gorm.DB) gin.HandlerFunc {
 
 		if query != "" {
 			dbQuery = dbQuery.Where(
-				"name ILIKE ? OR manufacturer ILIKE ?",
+				"name LIKE ? OR manufacturer LIKE ?",
 				"%"+query+"%",
 				"%"+query+"%",
 			)

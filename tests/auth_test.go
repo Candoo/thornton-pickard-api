@@ -11,6 +11,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/Candoo/thornton-pickard-api/internal/handlers"
 	"github.com/Candoo/thornton-pickard-api/internal/models"
+	
+	_ "modernc.org/sqlite"
 )
 
 func TestRegister(t *testing.T) {
@@ -35,7 +37,8 @@ func TestRegister(t *testing.T) {
 	assert.Equal(t, http.StatusCreated, w.Code)
 	
 	var response models.AuthResponse
-	json.Unmarshal(w.Body.Bytes(), &response)
+	err := json.Unmarshal(w.Body.Bytes(), &response)
+	assert.NoError(t, err)
 	assert.NotEmpty(t, response.Token)
 	assert.Equal(t, "test@example.com", response.User.Email)
 }
@@ -94,7 +97,8 @@ func TestLogin(t *testing.T) {
 	assert.Equal(t, http.StatusOK, w.Code)
 	
 	var response models.AuthResponse
-	json.Unmarshal(w.Body.Bytes(), &response)
+	err := json.Unmarshal(w.Body.Bytes(), &response)
+	assert.NoError(t, err)
 	assert.NotEmpty(t, response.Token)
 }
 
