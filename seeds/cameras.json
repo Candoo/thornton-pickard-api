@@ -1,0 +1,43 @@
+[
+  {
+    "name": "Ruby Reflex",
+    "manufacturer": "Thornton-Pickard",
+    "year_introduced": 1909,
+    "year_discontinued": 1926,
+    "format": "Plate",
+    "plate_sizes": "[\"4x5\", \"5x7\"]",
+    "lens": "Various",
+    "shutter": "Focal Plane",
+    "features": "[\"Reflex viewing\", \"Tilting back\", \"Rising front\"]",
+    "description": "Professional reflex camera popular with press photographers",
+    "rarity": "Uncommon",
+    "estimated_value_min": 500,
+    "estimated_value_max": 800
+  },
+  {
+    "name": "Imperial Triple Extension",
+    "manufacturer": "Thornton-Pickard",
+    "year_introduced": 1895,
+    "format": "Plate",
+    "plate_sizes": "[\"Half-plate\", \"Whole-plate\"]",
+    "shutter": "Time Shutter",
+    "features": "[\"Triple extension bellows\", \"Mahogany construction\"]",
+    "description": "High-quality field camera with extensive movements",
+    "rarity": "Rare",
+    "estimated_value_min": 300,
+    "estimated_value_max": 600
+  },
+  {
+    "name": "Time & Instantaneous",
+    "manufacturer": "Thornton-Pickard",
+    "year_introduced": 1892,
+    "format": "Plate",
+    "plate_sizes": "[\"Quarter-plate\", \"Half-plate\"]",
+    "shutter": "T&I Shutter",
+    "features": "[\"Mahogany body\", \"Brass fittings\"]",
+    "description": "Early hand camera with distinctive T&I shutter",
+    "rarity": "Very Rare",
+    "estimated_value_min": 200,
+    "estimated_value_max": 400
+  }
+]
