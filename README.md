@@ -408,56 +408,56 @@ psql -U postgres -d thornton_pickard -f seeds/initial_data.sql
 thornton-pickard-api/
 ├── cmd/
 │   └── api/
-│       └── main.go              # Application entry point
+│       └── main.go             # Application entry point
 ├── internal/
-│   ├── models/                  # Database models
+│   ├── models/                 # Database models
 │   │   ├── camera.go           # Camera model
 │   │   ├── ephemera.go         # Ephemera model
 │   │   ├── manufacturer.go     # Manufacturer model
 │   │   └── user.go             # User model with auth
-│   ├── handlers/                # HTTP request handlers
+│   ├── handlers/               # HTTP request handlers
 │   │   ├── camera.go           # Camera CRUD operations
 │   │   ├── ephemera.go         # Ephemera CRUD operations
 │   │   ├── auth.go             # Authentication handlers
 │   │   ├── manufacturer.go     # Manufacturer handlers
 │   │   └── upload.go           # File upload handlers
-│   ├── middleware/              # HTTP middleware
+│   ├── middleware/             # HTTP middleware
 │   │   ├── cors.go             # CORS configuration
 │   │   ├── auth.go             # JWT authentication
 │   │   ├── pagination.go       # Pagination middleware
 │   │   └── logger.go           # Request logging
-│   ├── services/                # Business logic layer
+│   ├── services/               # Business logic layer
 │   │   ├── auth.go             # Authentication service
 │   │   ├── camera.go           # Camera service
 │   │   └── storage.go          # File storage service
-│   ├── database/                # Database operations
+│   ├── database/               # Database operations
 │   │   ├── database.go         # DB connection & setup
 │   │   └── seed.go             # Database seeding
-│   └── utils/                   # Utility functions
+│   └── utils/                  # Utility functions
 │       ├── pagination.go       # Pagination helpers
 │       ├── response.go         # API response helpers
 │       └── validation.go       # Input validation
-├── tests/                       # Unit tests
+├── tests/                      # Unit tests
 │   ├── camera_test.go          # Camera endpoint tests
 │   ├── auth_test.go            # Auth endpoint tests
 │   └── upload_test.go          # Upload endpoint tests
-├── docs/                        # Swagger documentation (auto-generated)
+├── docs/                       # Swagger documentation (auto-generated)
 │   ├── docs.go
 │   ├── swagger.json
 │   └── swagger.yaml
-├── seeds/                       # Seed data files
+├── seeds/                      # Seed data files
 │   ├── cameras.json            # Camera seed data
 │   └── manufacturers.json      # Manufacturer seed data
-├── uploads/                     # Uploaded files directory
-├── .env.example                 # Environment template
-├── .env                         # Your environment (git-ignored)
+├── uploads/                    # Uploaded files directory
+├── .env.example                # Environment template
+├── .env                        # Your environment (git-ignored)
 ├── .gitignore
-├── Dockerfile                   # Production Docker image
-├── docker-compose.yml           # Docker Compose config
-├── dockerignore                 # Docker ignore file
-├── go.mod                       # Go module definition
-├── go.sum                       # Go dependencies
-└── README.md                    # This file
+├── Dockerfile                  # Production Docker image
+├── docker-compose.yml          # Docker Compose config
+├── dockerignore                # Docker ignore file
+├── go.mod                      # Go module definition
+├── go.sum                      # Go dependencies
+└── README.md                   # This file
 ```
 
 ## ⚙️ Configuration
@@ -466,7 +466,7 @@ thornton-pickard-api/
 
 ```env
 # Server
-ENV=development                  # development or production
+ENV=development                 # development or production
 PORT=8080                       # Server port
 
 # Database
