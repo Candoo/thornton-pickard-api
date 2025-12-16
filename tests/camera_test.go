@@ -46,8 +46,8 @@ func TestGetCameras(t *testing.T) {
 	
 	// Create test camera
 	camera := models.Camera{
-		Name:           "Test Camera",
-		Manufacturer:   "Test Manufacturer",
+		Name: 	 		"Test Camera",
+		Manufacturer: 	"Test Manufacturer",
 		YearIntroduced: 1900,
 	}
 	db.Create(&camera)
@@ -55,7 +55,9 @@ func TestGetCameras(t *testing.T) {
 	// Setup router
 	gin.SetMode(gin.TestMode)
 	router := gin.New()
-	router.GET("/cameras", handlers.GetCameras(db))
+	
+	cameraHandler := handlers.NewCameraHandler(db)
+	router.GET("/cameras", cameraHandler.GetCameras)
 
 	// Make request
 	w := httptest.NewRecorder()
@@ -76,8 +78,8 @@ func TestGetCamera(t *testing.T) {
 	
 	// Create test camera
 	camera := models.Camera{
-		Name:           "Test Camera",
-		Manufacturer:   "Test Manufacturer",
+		Name: 	 		"Test Camera",
+		Manufacturer: 	"Test Manufacturer",
 		YearIntroduced: 1900,
 	}
 	db.Create(&camera)
@@ -85,20 +87,23 @@ func TestGetCamera(t *testing.T) {
 	// Setup router
 	gin.SetMode(gin.TestMode)
 	router := gin.New()
-	router.GET("/cameras/:id", handlers.GetCamera(db))
+
+	cameraHandler := handlers.NewCameraHandler(db)
+	router.GET("/cameras/:id", cameraHandler.GetCamera)
 
 	// Make request
 	w := httptest.NewRecorder()
-	req, _ := http.NewRequest("GET", "/cameras/1", nil)
+
+	req, _ := http.NewRequest("GET", fmt.Sprintf("/cameras/%d", camera.ID), nil) 
 	router.ServeHTTP(w, req)
 
 	// Assert
 	assert.Equal(t, http.StatusOK, w.Code)
 	
-	var response models.Camera
+	var response map[string]interface{}
 	err := json.Unmarshal(w.Body.Bytes(), &response)
 	assert.NoError(t, err)
-	assert.Equal(t, "Test Camera", response.Name)
+	assert.Equal(t, "Test Camera", response["name"])
 }
 
 func TestCreateCamera(t *testing.T) {
@@ -107,12 +112,14 @@ func TestCreateCamera(t *testing.T) {
 	// Setup router
 	gin.SetMode(gin.TestMode)
 	router := gin.New()
-	router.POST("/cameras", handlers.CreateCamera(db))
+
+	cameraHandler := handlers.NewCameraHandler(db)
+	router.POST("/cameras", cameraHandler.CreateCamera)
 
 	// Create request body
 	camera := models.Camera{
-		Name:           "New Camera",
-		Manufacturer:   "New Manufacturer",
+		Name: 	 		"New Camera",
+		Manufacturer: 	"New Manufacturer",
 		YearIntroduced: 1910,
 	}
 	jsonData, _ := json.Marshal(camera)
@@ -126,13 +133,14 @@ func TestCreateCamera(t *testing.T) {
 	// Assert
 	assert.Equal(t, http.StatusCreated, w.Code)
 	
-	var response models.Camera
+	var response map[string]interface{} 
 	err := json.Unmarshal(w.Body.Bytes(), &response)
 	assert.NoError(t, err)
-	assert.Equal(t, "New Camera", response.Name)
+	assert.Equal(t, "New Camera", response["name"])
 }
 
-func TestSearchCameras(t *testing.T) {
+// Renamed from TestSearchCameras to reflect the combined endpoint functionality
+func TestSearchAndFilter(t *testing.T) {
 	db := setupTestDB()
 	
 	// Create test cameras
@@ -145,7 +153,9 @@ func TestSearchCameras(t *testing.T) {
 	// Setup router
 	gin.SetMode(gin.TestMode)
 	router := gin.New()
-	router.GET("/cameras", handlers.GetCameras(db))
+
+	cameraHandler := handlers.NewCameraHandler(db)
+	router.GET("/cameras", cameraHandler.GetCameras)
 
 	// Test search by name
 	w := httptest.NewRecorder()
@@ -169,8 +179,8 @@ func TestPagination(t *testing.T) {
 	// Create 15 test cameras
 	for i := 1; i <= 15; i++ {
 		camera := models.Camera{
-			Name:           "Camera " + string(rune(48+i)), // ASCII numbers
-			Manufacturer:   "Test",
+			Name: 	 		fmt.Sprintf("Camera %d", i),
+			Manufacturer: 	"Test",
 			YearIntroduced: 1900 + i,
 		}
 		db.Create(&camera)
@@ -179,7 +189,9 @@ func TestPagination(t *testing.T) {
 	// Setup router
 	gin.SetMode(gin.TestMode)
 	router := gin.New()
-	router.GET("/cameras", handlers.GetCameras(db))
+	
+	cameraHandler := handlers.NewCameraHandler(db)
+	router.GET("/cameras", cameraHandler.GetCameras)
 
 	// Test first page
 	w := httptest.NewRecorder()

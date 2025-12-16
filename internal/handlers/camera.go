@@ -26,7 +26,7 @@ func (h *CameraHandler) getCameraQuery(c *gin.Context) *gorm.DB {
 	// Search
 	if search := c.Query("search"); search != "" {
 		query = query.Where(
-			"name ILIKE ? OR manufacturer ILIKE ? OR description ILIKE ?",
+			"name LIKE ? OR manufacturer LIKE ? OR description LIKE ?",
 			"%"+search+"%",
 			"%"+search+"%",
 			"%"+search+"%",
